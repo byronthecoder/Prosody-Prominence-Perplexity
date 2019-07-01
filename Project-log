@@ -1,3 +1,16 @@
+01/07/19
+paper:
+
+tested prosodic feature extraction (failed)
+ran ProsodyPro script, cannot find esambled files which record features such as f0_min, etc.
+
+downloaded anotated word importance data from Rochester Institute.
+url:
+
+20/06/19
+branch entropy
+
+
 19/06/19
 paper:
 Automatic key term extraction from spoken course lectures using branching entropy and prosodic/semantic features
@@ -13,5 +26,136 @@ Pitch: ESPS and smoothing
 Energy: 0-th cepstral coef-ficient
 maximum, minimum, mean and range
 
-20/06/19
-branch entropy
+
+2019.06.14
+
+intonational prominience?   
+prosodic variation?
+
+one meaning --> many ways:
+Focus
+- intonational prominience
+- intonational phrasing variation
+- word order variation
+- syntactic constructions  
+*various ways to convery meaning* --> finding likelihood
+
+model the variability of a single speaker --> large labelled corpus
+
+one prosodic feature --> many meanings:
+- a single intonational contour
+- a change of involvement
+- a shift of topic
+- a return from a perenthetical remark  
+*how these functions interact?* -- barely studied! --> hard to compose/decompose prosodic features
+
+### A framework of intonational  description: ToBI
+
+http://www.speech.cs.cmu.edu/tobi/ToBI.1.html
+
+text-to-speech
+concept-to-speech?
+speech dialogue system
+
+
+pitch accent
+phrase accent
+boundary tone
+
+prosodic grouping
+intemidiate phrase
+
+#### Four tiers of ToBI
+- a tone tier
+discribes intonation pattern
+consists labels of pitch events: high (H), low (L) with diacritics
+indicate intonational functions (pitch accent, phrasing)
+
+- an orthographic tier
+be used to interface the transcription to dictionary entries
+
+- a break-index tier
+marks the prosodic grouping of the words
+numbers indicate the subjective strength of its association with the next word
+
+- a miscellaneous tier
+a `comment' tier to mark events such as the cough and disfluency
+
+##### Break indices
+
+    Level 4 phrase:
+        Level 3 phrase(s)  
+            pitch accent(s) -- stressed syllable of lexical items  
+            phrase accent: high (H-) or low (L-)  
+        boundary tone (H% or L%)
+
+##### Contour variation
+- ending in L- + H % -- continuation rise
+- continuation rise + (L* + H) -- rise-fall-rise contour -- uncertainty or incredulity
+- H* + H- + L% -- plateau contour -- bored or recitation
+- H* + H- + H% -- high-rise question contour -- appreciation
+
+##### 
+pitch accent --> different tone targets + different `$F_0$` --> prominience  
+
+***Pitch targets** are the smallest articulatorially operable units associated with linguistically functional pitch units such as tone and pitch accents.*
+Prosody, Prominence and Perplexity in Spoken Language 
+
+Background
+
+One of the key functions of the ‘prosodic' patterning in speech is thought to be to draw attention to the key infomation-bearing elements of a spoken utterance.  In other words, the most important parts of an utterance are often associated with prosodic ‘prominence' such as increased loudness, large changes in the intonation, and extended segment durations.  From a linguistic perspective, the key information-bearing elements are those which are the least predictable.  Therefore, taking these two aspects together, it can be hypothesised that there should be a correlation between the predictability of words (known as ‘perplexity') and the major prosodic prominences in an utterance.
+
+Project Goal
+
+The aim of this 'Experimental' project is to test this hypothesis.  Hence the project will involve the use of  (i) appropriate speech processing algorithms to derive prosodic features from a selected corpus of recorded utterances, (ii) appropriate text processing algorithms to compute the predictability of each individual word in the corresponding transcripts, and (iii) statistical tools to analyse the putative relationship between the two.  The prosodic features might be calculated using a toolkit such as ‘openSMILE’, and the perplexity might be calculated using the ‘CMU-SLM’ toolkit.
+
+
+
+Reading
+
+* Gold, B., & Morgan, N. (2000). Speech and Audio Signal Processing: Wiley.
+
+* Hirschberg, J. (2002). Communication and prosody: Functional aspects of prosody. Speech Communication, 36(1–2), 31–43.
+
+* The Munich Versatile and Fast Open-Source Audio Feature Extractor (openSMILE): http://audeering.com/technology/opensmile/
+
+* The CMU-Cambridge Statistical Language Modeling Toolkit (CMU-SLM): http://www.speech.cs.cmu.edu/SLM/toolkit_documentation.html
+
+### comments
+
+prosody
+- defination
+- functions
+
+information: perplexity, predicability,   
+  
+prosodic prominience  
+- increased loudness: pitch, F0?, energy?  
+- large intonation change  
+- extended segment duration
+
+correlation
+
+words: prosodic features extracted by sentence? perplexity computed by sentence?
+compute the predictabilty
+- TF-IDF
+- one word entropy
+
+
+data
+- spoken utterances? : need feature extraction; need transcripts
+- ready annoted transcripts: may be ready to train LM
+- ready trained LM with prosodic features? perfect!
+
+prodsodic feature extraction  
+- tools? openSMILE? Praat, ToBI, 
+- coding myself
+
+language model training
+- ready LM
+- tools
+- coding myself
+
+hypothesis evaluation
+- tools
+- method: prosodic value vs TF-IDF, or just compare the contour
