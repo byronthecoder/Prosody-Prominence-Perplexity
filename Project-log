@@ -101,13 +101,47 @@ pitch accent --> different tone targets + different `$F_0$` --> prominience
 ***Pitch targets** are the smallest articulatorially operable units associated with linguistically functional pitch units such as tone and pitch accents.*
 Prosody, Prominence and Perplexity in Spoken Language 
 
+# Background Report Feedback
+### Supervisor
+** Student performance (supervisor only) **
+Yuan has been very diligent in the run-up to to the start of his project and has met with me several times. 
+He is very enthusiastic about the work, and should be able to produce a good outcome.
+** Amount of work completed **
+A reasonable amount of work has been done.
+** Literature Survey or Background Information **
+The background has been covered, but at a rather high level. 
+The information provided may not be sufficient for a non-specialst to follow. 
+More detail could have been provided.
+** Analysis **
+The analysis is rather shallow. 
+Some key decisions appear to have been made without the pros and cons being explained (e.g. what are the alternatives to Switchboard?). 
+The proposed experiments could have been described more clearly.
+** Planning **
+The plan looks OK, but there seems to be some experimental work in the theortical stage.
+** Report Presentation **
+The report is written reasonably well, although there are a number of typos. 
+Many of the references are incomplete (e.g. missing the jounal name).
+** General comments **
+Yuan has started his project reasonably well, but he needs to step up his game if he wishes to achieve the marks to which he aspires.
+
+### 2nd Marker
+** General comments **
+This is a clear report, albeit the shortest I have received. 
+While the work is reasonably clear, I do not quite understand 
+how the relationship model between prosodic features and importance features is built 
+or what the actual outcome is. 
+Further there is a wealth of literature on prosodic encoding that has not been described.
+
+
+# Project Description
+
 Background
 
 One of the key functions of the ‘prosodic' patterning in speech is thought to be to draw attention to the key infomation-bearing elements of a spoken utterance.  In other words, the most important parts of an utterance are often associated with prosodic ‘prominence' such as increased loudness, large changes in the intonation, and extended segment durations.  From a linguistic perspective, the key information-bearing elements are those which are the least predictable.  Therefore, taking these two aspects together, it can be hypothesised that there should be a correlation between the predictability of words (known as ‘perplexity') and the major prosodic prominences in an utterance.
 
 Project Goal
 
-The aim of this 'Experimental' project is to test this hypothesis.  Hence the project will involve the use of  (i) appropriate speech processing algorithms to derive prosodic features from a selected corpus of recorded utterances, (ii) appropriate text processing algorithms to compute the predictability of each individual word in the corresponding transcripts, and (iii) statistical tools to analyse the putative relationship between the two.  The prosodic features might be calculated using a toolkit such as ‘openSMILE’, and the perplexity might be calculated using the ‘CMU-SLM’ toolkit.
+The aim of this 'Experimental' project is to test this hypothesis. Hence the project will involve the use of  (i) appropriate speech processing algorithms to derive prosodic features from a selected corpus of recorded utterances, (ii) appropriate text processing algorithms to compute the predictability of each individual word in the corresponding transcripts, and (iii) statistical tools to analyse the putative relationship between the two.  The prosodic features might be calculated using a toolkit such as ‘openSMILE’, and the perplexity might be calculated using the ‘CMU-SLM’ toolkit.
 
 
 
