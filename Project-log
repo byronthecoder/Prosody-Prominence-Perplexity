@@ -1,3 +1,23 @@
+03/08/19
+ask roger
+1. opensource .TextGrid files
+2. code uploading to the Department? assessment based on codes?
+3. 
+
+pblms:
+1. Switchboard .wav files have two channels: spkr A and B -- needs two tiers on .TextGrid -- work on Purdue tool?
+
+gains:
+1. examine the data before coding.
+
+02/08/19
+Praat annotation
+https://gist.github.com/scjs/ffbbba71cc8b3ff9d0476c82b2df9d0f
+
+TGT
+https://textgridtools.readthedocs.io/en/stable/api.html#tgt.core.Interval
+
+
 01/07/19
 paper:
 
