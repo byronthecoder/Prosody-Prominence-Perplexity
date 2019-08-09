@@ -1,9 +1,72 @@
+
+
+
+
+
+
+
+
+
+
+07/08/19
+forced alignment
+    data 
+    - TextGrid: -s flag tier name? speaker name
+
+    
+06/08/19
+supervisor meeting 8
+do forced alignment
+know more about Purdue features, derivatives = slopes?
+report writing and result analysis in the same time
+use diagrams and UML to demostrate workflow
+project assessment: codes = reprot (I doubt it), the quality of it?
+readings: writing for computer science
+
+pblms:
+1. missing phone.TextGrid to run the Purdue tool.
+
+    buy phone annotations
+
+    use forced alignment
+        collections:
+        https://github.com/pettarin/forced-alignment-tools
+
+        Praatalign
+        https://github.com/dopefishh/praatalign
+
+        Montreal force aligner
+
+            dictionary: prododylab-aligner
+            https://github.com/prosodylab/Prosodylab-Aligner/blob/master/eng.dict
+
 05/08/19
+
+ask roger
+
+resources:
+1. The Switchboard Corpus in NXT
+http://groups.inf.ed.ac.uk/switchboard/index.html
+
 correlation
 1. https://pypi.org/project/correlation-pearson/
 
 prosody
+read the same sentence in different ways:
+    - like a robort
+    - question or statement?
+    - language learners learn the intonation
+
+word level:
+    - DON'T record this! (energy)
+    - it's FAAAR from satisfied. (duration & pitch?) 
+        ? how to judge a word which is spoken with longer duration than it usually is?
+        ? can you get some info even if when you don't know the language?
+            our aim: small batch --> big batch
+        ? what role does pause / rhyme / phone play?
+        ? do we need to go to phone level?
 energy: words with more energy are more important?
+
 
 04/08/19
 ideas:
