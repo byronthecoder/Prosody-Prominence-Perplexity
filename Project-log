@@ -1,8 +1,67 @@
+12/08/19
+how many .wav files do I have?
+45 with word importance annotations
+
+supervisor meeting 9
+- the project is assessed based on the poster sessetion? the codes? or the report? (didn't ask)
+- spearman rank correlation
+    Pearson cares about the two curves
+    we care ranks
+- the way of demostrating 
 
 
 
+how long to process one?
+10/08/19
+anova test
+t-test
+
+feature selection
+    labeled interval
+1. continuous f0 velocity: (= first derivative of f0) curves (for labeled intervals only)
+2. sampled f0: f0 at fixed time intervals as determined by F0_sample_rate (number of points per second)
+
+X.means -- Containing the following values (in the order of the columns):
+
+3. maxf0 (Hz)
+4. maxf0_loc_ms -- Time of the f0 peak relative to the onset of an interval in milliseconds
+5. maxf0_loc_ratio -- Relative location of the f0 peak as a proportion to the duration of the interval
+    　# maybe useful at sentence level: locate the word with the highest f0.
+
+6. minf0 (Hz)
+7. meanf0 (Hz) average F0 in Hz
+    # [silence] = undefined = 0
+    # some words not [silence] = undefined ? eg. to, you, 
+8. finalf0 (Hz) -- Indicator of target height (taken at a point specified by "Final offset" in the startup window); 
+                   F0 near the interval offset in Hz
+    # [silence] has value , not undefined; value around 120 Hz ? approximate to the previous value?
+    # each value a bit lower than corresponding meanf0
+9. excursion size (semitones) -- difference between maximum F0 in semitones and minimum F0
+10. max_velocity (semitones/s)
+11. final_velocity (semitones/s) -- Indicator of target slope (taken also at a point earlier than the interval offset by time specified by "Final offset" in the startup window)
+12. mean intensity (dB)
+13. duration (ms) -- interval duration in ms
+    
+    real time
+1. rawf0 (Hz) -- raw f0 with real time computed directly from the pulse markings, converted directly from vocal periods (F0 = 1/T, where T is vocal period in second) marked in X.pulse
+2. f0 (Hz) -- smoothed f0 with the trimming algorithm (Xu, 1999)
+3. samplef0 (Hz) -- f0 values at fixed time intervals specified by "f0 sample rate"
+4. smoothf0 (Hz) -- samplef0 f0 smoothed by a triangular window
+5. semitonef0 —- Semitone version of X.samplef0 
+6. f0velocity (semitones/s) -- velocity profile (instantaneous rates of F0 change) of f0 contour in semitone/s at fixed time intervals specified by "f0 sample rate" ***
+    # semitone value ? around 80?
+    
+    time-normalized
+1. timenormf0 (Hz) -- time-normalized f0. The f0 in each interval is divided into the same number of points (default = 10).
+2. timenormIntensity (dB) -- time-normalized intensity. The intensity in each interval is divided into the same number of points (default = 10).
+3. actutimenormf0 (Hz) -- time-normalized f0 with each interval divided into the same number of points (default = 10). But the time scale is the original, except that the onset time of interval 1 is set to 0, unless the "Set initial time to 0" box in the startup window is unchecked.
+   actutimenormf0 — Time-normalized F0 (Hz) with real-time x-axis values 
+4. normtime_f0velocity —Time-normalized continuous F0 velocity
+   
 
 
+
+focus -- F0
 
 
 
