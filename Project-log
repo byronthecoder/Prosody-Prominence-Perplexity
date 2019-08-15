@@ -1,3 +1,63 @@
+15/08/19
+spearman correlation
+    word importance has only 11 values, normalise the prodsodic features?
+        - categorical or numerrical?
+        - data binning: divide the data into intervals 
+
+    - variavbles are ordinal
+    - data are non-linearly related
+    - data are non-normally distributed
+
+chi square test for independence
+
+14/08/19
+supervisor meeting 10
+1. write in your report how other people could reproduce your work
+    data processing
+2. care about data size
+    what the performance if given less data? data is hard to get in some domain
+3. the poster sessetion weights 10%
+4. machine learning
+    I got features and labels, why not machine learning?
+    - features are independent?
+    - feature combination
+    - non-linear relationship
+5. version control
+    - code
+    - outputs
+    - never run a experiment twice
+    - parameter-based easy experiment
+
+Xu Hao's idea
+1. traditional ML results as baseline
+2. representation learning
+    - feature value normalisation
+    - data representation (raw data as vector)
+    - representation learning based on selected features
+        eg. similarity score
+
+3. train a ML model
+    - structure perceptron
+    - naive bayes (probability)
+    - deep learning
+    * sk-learn library
+
+4. evaluation
+    - f1 score
+    - ...
+    
+5. result
+    compare to the baseline
+    to prove that those prosodic features I selected could be captured by ML algorithms
+6. Further work
+    - different combination of features
+    - context-related features
+    - sentence level 
+
+
+
+
+
 12/08/19
 how many .wav files do I have?
 45 with word importance annotations
