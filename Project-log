@@ -1,3 +1,9 @@
+16/08/19
+save the data in memory or save it as a .csv in local disk?
+
+code optimisation:
+    delete varibales no longer needed to save memory?
+    
 15/08/19
 spearman correlation
     word importance has only 11 values, normalise the prodsodic features?
