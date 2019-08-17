@@ -1,9 +1,21 @@
+17/08/19
+1. data processing
+    a. concatenate dataframes
+    b. del '[silence]', '[noise]', '[laughter]'
+    c. replace '--undefined--', '0'
+
+2. code submission
+    submit a jupyter notebook?
+
+3. Normality test
+
+
 16/08/19
 save the data in memory or save it as a .csv in local disk?
 
 code optimisation:
     delete varibales no longer needed to save memory?
-    
+
 15/08/19
 spearman correlation
     word importance has only 11 values, normalise the prodsodic features?
