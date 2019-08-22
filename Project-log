@@ -1,3 +1,64 @@
+21/08/19
+Supervisor meeting
+1. featrue combination
+why combining good features with poor features?
+
+2. 3-D comparision
+accoustic features -- word importance -- word predictability (probability)
+
+3. missing pieces 
+    - build N-gram LM to compute probability
+    - compare N-garm LMs 
+    - ML 
+4. prepare for poster session 
+    - magic word "quick"
+    - amaze Thomas with what you have done
+    - these findings are really interesting
+    
+20/08/19
+Supervisor meeting 
+1. word predictability
+
+    "it can be hypothesised that there should be some correlation between 
+    the predictability of words and the paralinguistic properties of an utterance"
+
+    related to word importance?
+
+    for humans, word predictability various from persoon to person.
+
+    - is meaningful only for word sequence;
+    - related to language knowledge
+    - affected by hearing, accoustic properties in speech;
+
+    here we regard it as the probability of a word in a sentence.
+
+2. language modelling
+    V = Vocabulary size of a language
+    N = length of a sequence
+    w_i = a word in a language
+    tatal_sample = V ** N
+    P(w_1) = 1/V (equally distributed)
+
+    In fact,
+    P(w_1) = count(w_1) / V
+    P(w_1, w_2) = count(w_1, w_2) / count(w_1)
+    P(w_1, w_2, ... w_i) = count(w_1, w_2, ... w_i) / count(w_1, w_2, ... w_i-1)
+
+3. build language model
+    - pre-trained LM;
+        how to find?
+            github
+        how to use
+    - compute word probability sentence by sentence
+
+
+
+2. typos
+
+3. word like 'yeah' important?
+
+
+
 18/08/19
 1. machine learning
     input: pf, pf -- weight, pf value varies?
