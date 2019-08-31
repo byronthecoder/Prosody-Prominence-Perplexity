@@ -1,3 +1,65 @@
+31/08/19
+
+30/08/19
+will it cost less executation time if the decimal places are rounded?
+
+ideas
+1. check top n words for every feature
+2. remove stop words
+3. machine learning 
+    - vectorise word with selected prosodic featrue values, eg, duration, max_velocity, meanf0, mean_insensity
+    - train a classifier to predict the importance of a word
+    - train a ngram LM compare it to the one with prosodic features being added
+   
+
+27/08/19
+supervisor meeting
+
+3 decimal points
+don't pour all the data, hilight them
+    asteroid star
+    bold font
+
+3 way comparision
+word importance and predictability are very related
+prosodic features and predictability are related
+prosodic features and word importance are not very correlated
+
+are my numbers correct?
+package functions
+test: eg test spearman-corr with toy data
+
+aware of difficulties in writing dissertation
+    table in latex
+
+
+26/08/19
+1. correlation
+- A and B form a perfectly positive correlation
+- A and B are significantly and negatively correlated
+- correlation is significant at the 0.01 level (2-tailed?)
+
+    Pearson
+
+    assumptions
+    - samples consist of related pairs
+    - both variables are continuous and linearly correlated (plot)
+    - variables follow a bivariate normal distribution (plot)
+    - homogeneneity of variances (the variance of one variable should be stable at all levels of the other variable)
+    - no major outliers
+
+    function
+    to test if two variables are linearly correlated, not casually  
+
+22/08/19
+1. language modelling
+    word dict
+    - use regex to check specially-formed words in the corpus
+    - for some specially-formed words: isn't easier to to modify them or even delete them in the original file?
+    bi-gram
+    - sentence beginning <s>/ending </s> needed?
+        (</s>, word_i) , (word_i, <s>) not in the featrue names -- doesn't matter
+        (last_word_sentence1, first_word_sentence2) not in bi-gram list  -- matters, prob = 0
 21/08/19
 Supervisor meeting
 1. featrue combination
@@ -14,7 +76,7 @@ accoustic features -- word importance -- word predictability (probability)
     - magic word "quick"
     - amaze Thomas with what you have done
     - these findings are really interesting
-    
+
 20/08/19
 Supervisor meeting 
 1. word predictability
