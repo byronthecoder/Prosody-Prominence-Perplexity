@@ -1,0 +1,120 @@
+\chapter{Experiment}
+%\chapter{Methodology}
+
+\section{Feature Extraction}
+% what should I do? How to implement?
+The ProsodyPro Praat script was ran to extract the prosodic features (listed in Fig) by calling the ParselMouth method parselmouth.praat.run\_file() with the "Interactive labeling" command. The inputs are .wav audio files and Praat style .TextGrid files.  
+
+\subsection{Audio Files Processing}
+The SwitchBoard corpus has a file type of .sph which needs to be converted to .wav. The telephone conversation nature of these audios make them two-channel wave files with each channel representing one speaker, while the transcripts are aligned to each individual speaker. By calling parselmouth.Sound().extract\_all\_channels(), each channel in the audio file was extracted and then can be saved as a mono-channel file.
+
+To do prosodic feature extraction using ProsodyPro, not only audio files are required but also time-aligned word transcriptions. The TextGrid object in Praat can serve as such transcriptions. It has a multi-tier structure consisting of two kinds of tiers: an interval tier and a point tier. The former is a sequence of labelled intervals, with boundaries in between; the latter is a sequence of labelled points. The idea is to create an interval tier with the word duration as an  interval and the word itself as the label. All these could be done by calling Praat's "To TextGrid", "Insert boundary", and "Set interval text" methods using ParselMouth. With the .wav file and the .TextGrid file been created, ProsodyPro is able to implement feature extraction and store the data in a table as it is shown in (tab...)
+
+When looping through the transcripts to create TextGrid files, some manipulation work should be noticed:
+- the "Insert boundary" method cannot take 0 as input, should delete rows with time point 0 in the transcripts
+- at one time point can only insert one boundary, need to delete rows with same time points in the transcripts
+
+After TextGrid files being created, the author manually checked them to ensure that the codes did the right job.
+
+\subsection{Extraction Prosodic Features}
+The feature extraction process costs 3 to 5 minutes for each wave file. It will generate 17 files in the formats of spreadsheets or graphs for further statistical or graphical researches \citep{Xu2013}. Among these files, the .means file is the spreadsheet which stores the extracted prosodic data from the corresponding audio file. Using Python library Pandas, .mean files were concatenated into a single Pandas DataFrame as the data source. Here is an example showing the first ten rows of the DataFrame for word importance related experiments.
+
+pic: features example  rowLabel word, the order corresponds to the texts in the transcripts 
+
+\section{Data Cleaning}
+%Here the author analysed each sub-task in the implementation stage and listed the preferred methods (as "Priority" in Table %\ref{tab: iplementation}) as well as other options which may be adopted after a further research. Advantages and drawbacks are %also examined for future decision.
+
+Take a look at (table), the reader will have an idea that how noisy the data is. On the RowLabel column, there are a number of words marked with special characters such as "[]", "{}", and "-". Three examples are "[silence]", "{jazzercise}" and "-[becau]se". Such words account for 26.1\% of the word importance corpus and 1.39\% of the total SwithBoard corpus. With these special words being removed, the vocabulary size of the SwitchBoard corpus will drop from around 23,000 to 14,926. Special characters indicate different meanings: the square brackets relates to silence, noise, laughter and other sounds which are not so related to the research. Braces relates to background sounds. The dash indicates that the word is unfinished with hesitation, repetition, self-correction and so forth which, depending on the way it is dealt with, will affect the result of the research.  Apart from the special characters, there are other subtle issues like no values, data types, etc. 
+
+%May cause missing values that hazard the computation of propability.
+
+regex
+
+- stop words
+nltk.download('stopwords')
+from nltk.corpus import stopwords
+
+appendix
+['i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', "you're", "you've", "you'll", "you'd", 'your', 'yours', 'yourself', 'yourselves', 'he', 'him', 'his', 'himself', 'she', "she's", 'her', 'hers', 'herself', 'it', "it's", 'its', 'itself', 'they', 'them', 'their', 'theirs', 'themselves', 'what', 'which', 'who', 'whom', 'this', 'that', "that'll", 'these', 'those', 'am', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'having', 'do', 'does', 'did', 'doing', 'a', 'an', 'the', 'and', 'but', 'if', 'or', 'because', 'as', 'until', 'while', 'of', 'at', 'by', 'for', 'with', 'about', 'against', 'between', 'into', 'through', 'during', 'before', 'after', 'above', 'below', 'to', 'from', 'up', 'down', 'in', 'out', 'on', 'off', 'over', 'under', 'again', 'further', 'then', 'once', 'here', 'there', 'when', 'where', 'why', 'how', 'all', 'any', 'both', 'each', 'few', 'more', 'most', 'other', 'some', 'such', 'no', 'nor', 'not', 'only', 'own', 'same', 'so', 'than', 'too', 'very', 's', 't', 'can', 'will', 'just', 'don', "don't", 'should', "should've", 'now', 'd', 'll', 'm', 'o', 're', 've', 'y', 'ain', 'aren', "aren't", 'couldn', "couldn't", 'didn', "didn't", 'doesn', "doesn't", 'hadn', "hadn't", 'hasn', "hasn't", 'haven', "haven't", 'isn', "isn't", 'ma', 'mightn', "mightn't", 'mustn', "mustn't", 'needn', "needn't", 'shan', "shan't", 'shouldn', "shouldn't", 'wasn', "wasn't", 'weren', "weren't", 'won', "won't", 'wouldn', "wouldn't"]
+
+* inclimation = ['uh', 'oh', 'wow', 'well', 'yeah', 'um', 'uh-huh', 'okay', 'gee', 'ooh', 'um-hum']
+intensity
+
+- NaN values
+pfs_wimps_df.replace('--undefined--', np.nan, inplace=True)
+
+- dtype
+Cast all numeric data to the same type
+object float
+pfs_wimps_df.replace(0, float(0), inplace=True)
+pfs_wimps_df = pfs_wimps_df.astype("float64")
+
+（Generate descriptive statistics that summarize the central tendency, dispersion and shape of a dataset's distribution, excluding NaN values.
+Analyzes both numeric and object series, as well as DataFrame column sets of mixed data types. The output will vary depending on what is provided.
+
+Finding:
+most frequent word: [silence], not relavant to the research;
+NaN value in col maxf0, minf0 ..., maybe there exists string values like "--undefined--" or ones that are not float64;
+Checking the .csv file, not only [silence], but [laughter], [noise], etc;）
+
+
+
+
+
+\section{Data Summary?}
+
+Histograms helps to understand the distribution of the numeric value that is not easy to see with the mean and median.
+
+fig: histogram of select features
+
+* word importance
+count    24994.000000
+mean         0.285314
+std          0.264039
+min          0.000000
+25\%          0.100000
+50\%          0.200000
+75\%          0.400000
+max          1.000000
+Name: wimp, dtype: float64
+
+if a person makes prediction and he predicts all label as "not important", he still has over 60 percent prob to win.
+
+* scarrer plot
+not easy to see the general picture gievn the discrete wimp values.
+
+\section{Spearman Rank Order Correlation Coefficient}
+pearson, spearman, kadel?
+spearman is suitable
+equation
+numpy faster than pandas
+
+\subsubsection{Compare values}
+Based on a quantitative approach, the prosodic features and the words in speech will be represented by scalars or vectors. To evaluate the correlation is to map the values of the two elements with a mathematical function. Examining on the property of the function will reveal the relation between the two variables. 
+
+\subsubsection{Compare contours}
+On sentence or utterance level, we may not need a math function to indicate the correlation, instead can plot the contour of prosodic features in a sentence and one with values of word importance. By comparing the peaks, valleys and fluctuations of the two contours, we are also able to learn the relation.
+
+\subsubsection{Compute perplexity}
+Perplexity is the dominant metric to evaluate language models, which reflects the predictability of the model. We can firstly compute the overall perplexity of the language model trained with just text data and then compare it to the perplexity of the model with prosodic features being added. If the latter is lower, it could arguably prove that the prosodic features reveal the word importance in a spoken sentence.
+
+\section{Ethical, Professional and Legal Issues}
+%\lipsum  % Replace with your text
+This project will be implement according to the BSC Code of Conduct with a commitment to the author's professional integrity and in the public interest.
+
+\begin{itemize}
+    
+    \item The data to use in this project is from public database, e.g. Switchboard corpus, and the software to use is open-source, e.g. Praat. The author will have due regard for public interest including privacy, equality and  the legitimate rights of Third Parties.
+    
+    \item This project will be done within the author's professional competence without stealing, copying or reproducing the work of others.
+    
+    \item The author promise to carry out his professional responsibilities with due care and
+    diligence in accordance with the Relevant Authority’s requirements and will not misrepresent any data or information.
+    
+    \item The author will commit to the duty of his profession and seek to improve professional standards.
+\end{itemize}
+
+%what I am not clear:
+%tones and meaning
+
+

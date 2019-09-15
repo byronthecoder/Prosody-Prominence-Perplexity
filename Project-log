@@ -1,5 +1,46 @@
-31/08/19
+15/09/19
+not a word in dict
+{alrighty} = all right! (slang)
+{babysittingwise}  -wise
+{cognizitive}  -ive
+{yuppyish}  -ish
 
+noncanonical words, words that are not following the rule.
+
+13/09/19
+special character {}
+are they background music? seems wimp very high.
+
+08/09/19
+pitch accent
+
+07/09/19
+include in dissertation?
+1. sofeware, tools, python libs and versions?
+
+02/09/19
+velocity
+same word, some + velo; some - velo -- divide into 2 groups?
+
+01/09/19
+prosody
+speaker dependent qualities?
+Switchboard-multispeaker
+my research- do not care speakers 
+
+31/08/19
+prosodic prominences
+    - extended duration
+    - major change in intonation
+    - louder voice
+
+drop words with square brackets
+    save csv
+
+use nltk to process my corpus
+    nltk.FreqDist(
+        .most_common()
+    )
 30/08/19
 will it cost less executation time if the decimal places are rounded?
 
