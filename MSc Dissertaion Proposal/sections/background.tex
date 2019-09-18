@@ -109,17 +109,13 @@ PP(W) = P(w_1, w_2, \cdots, w_N)^{-\frac{1}{N}}\\
 
 It is assumed that a better language model will assigns a higher probability, or higher maximum likelihood to a sentence of the test set hence the perplexity will be lower. Furthermore, this model will perform better in word prediction.
 
-\subsection{RIT annotation}
-The Linguistic and Assistive Technologies Laboratory at the Rochester Institute of Technology (RIT) released an open word importance annotation corpus in 2017. They augumented the transcripts of the famous the Switchboard conversational dialogue corpus \citep{Godfrey1992} based on the work of the Institute for Signal and Information Processing (ISIP). A pair of annotators have assigned word importance scores to Switchboard transcripts. By September 2017, over 25,000 tokens have been annotated including the overlap of approximately 3,100 tokens. 
+\section{Statistical Tools}
 
-\citet{Kafle2018} defined word importance as a continuous scale from 0.0 (not important
-at all to the meaning of the utterance) to 1.0 (very important). The annotator has been given a rating scheme which specifies the scoring criteria and they should also consider how much the meaning of the utterance be changed if a word has been deleted. Here is an example showing how the scoring system works.
+\subsection{Pearson Correlation Coefficient}
 
-\begin{figure}[ht]
-\includegraphics[width=15cm]{figures/word.png}
-\caption{An example of RIT annotation, Reproduced from S. Kafle and M. Huenerfauth, 2018, A Corpus for Modeling Word Importance in Spoken Dialogue Transcripts, with the permission of the copyright owner.}
-\label{fig:word}
-\end{figure}
+\subsection{Spearman Rank Order Correlation}
+
+\subsection{P-value}
 
 
 
@@ -130,13 +126,28 @@ at all to the meaning of the utterance) to 1.0 (very important). The annotator h
 %Furthermore, the dyadic nature of dialogue, with interleaved contributions from multiple speakers, may require %special consideration when evaluating word importance. In this paper, we present a corpus with annotation of word %importance that could be used to support research into these complex issues.
 
 
-\section{Data}
-Choosing appropriate spoken data is of vital importance of this experimental project. Prosodic feature extraction requires huge clearly articulated utterance in the general domain. An open utterance corpus with transcripts is preferred for the convenience of building language models. Considering these two, the author has chosen the Switchboard corpus as data source and a widely used software called Praat for feature extraction.
+\section{Corpuses}
+Choosing appropriate audio data is of vital importance for this experimental project. The less noisy the recording is, the better the extracted rosodic features. The sppech corpus should be large in size and cover general domains. Time alligned transcripts are desirable for the convenience of word-level accoustic feature extraction and text processing. 
 
-\subsection{Switchboard corpus}
-The Switchboard corpus is a large multi-speaker database of conversational speech. It consists of recordings of approximately 260 hours of telephone conversations among 543 speakers (241 female, 302 male) from across the United States. In 2003, the Institute for Signal and Information Processing (ISIP) released written transcripts for the entire corpus with a complete vocabulary list and automatic word alignment timing corresponding to the original audio files. \citet{Kafle2018} in the Rochester Institute of Technology (RIT) released an free-to- download augumented version of ISIP transcripts for word-importance modelling. 
+\subsection{Switchboard Corpus}
+The SwithchBoard telephone conversation corpus is a large multi-speaker speech database. It consists of approximately 260 hours of telephone conversations among 543 speakers (241 female, 302 male) from across the United States, covering major dialects of American English\citep{Godfrey1992} . In 2003, the Institute for Signal and Information Processing (ISIP) released written transcripts for the entire corpus with a complete vocabulary list and automatic word alignment timing corresponding to the original audio files. The transcripts has over 4,000,000 words in total, a suitable size for language modelling.
 
-\subsection{Feature extraction tool: Praat}
+
+\subsection{RIT Word Importance Corpus}
+The Linguistic and Assistive Technologies Laboratory at the Rochester Institute of Technology (RIT) released a free-to-download word importance annotation corpus in 2017  \citep{Kafle2018}. It is an augumented version of the ISIP Switchboard transcripts with a pair of annotators assigning word importance scores to each word token in a sentence. By September 2017, over 25,000 tokens have been annotated including an overlap of approximately 3,100 tokens. 
+
+\citet{Kafle2018} defined word importance as 11 discrete values from 0.0 (not important
+at all to the meaning of the utterance) to 1.0 (so important that cannot be dropped). The annotator has been given a rating scheme which specifies the scoring criteria. They should also consider how much the meaning of the utterance would be changed if a word has been deleted. Here is an example showing how the scoring system works.
+
+\begin{figure}[ht]
+	\includegraphics[width=15cm]{figures/word.png}
+	\caption{An example of RIT annotation from S. Kafle and M. Huenerfauth, 2018}
+	\label{fig:word}
+\end{figure}
+
+\section{Feature Extraction Tools} 
+
+\subsection{ Praat}
 Praat \citep{PaulBoersma&DavidWeenink2018} is a freeware program for the analysis and reconstruction of acoustic speech signals. The user is able to analyze, synthesize, manipulate speech and plot pictures for visualisation in papers. It was designed, and continues to be developed, by Paul Boersma and David Weenink of the University of Amsterdam. Praat is available for most platforms. The clear visual presentation of operational procedures and introduction to acoustic knowledge are provided to facilitate the users in linguistic research.
 
 Some of its functionalities include:
@@ -152,6 +163,15 @@ Some of its functionalities include:
 \caption{Speech analysis sofware Praat, from http://ec-concord.ied.edu.hk/}
 \label{fig:praat}
 \end{figure}
+
+\subsection{ProsodyPro}
+ProsodyPro is a software for large-scale speech prosody analysis. The program is a Praat script developped by Yi Xu at University College London. It allows users to combine detailed analysis of continuous prosodic features with systematic comparison with discrete measurements . The
+allows users to perform systematic analysis of large amounts of data and generates a rich set of output, including both continuous data like time- normalized F0
+contours and F0 velocity profiles suitable for
+graphical analysis, and discrete measurements suitable for statistical analysis. It
+
+\subsection{ParselMouth}
+
 
 \section{Spearman Rank Order Correlation Coefficient}
 pearson, spearman, kadel?
