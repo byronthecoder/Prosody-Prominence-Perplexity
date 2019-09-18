@@ -22,11 +22,26 @@ The feature extraction process costs 3 to 5 minutes for each wave file. It will 
 pic: features example  rowLabel word, the order corresponds to the texts in the transcripts 
 
 \section{Data Cleaning}
-%Here the author analysed each sub-task in the implementation stage and listed the preferred methods (as "Priority" in Table %\ref{tab: iplementation}) as well as other options which may be adopted after a further research. Advantages and drawbacks are %also examined for future decision.
+Take a look at (table), the reader will have an idea of how noisy the data is. On the RowLabel column, there are a number of words marked with special characters such as "[]", "{}", and "-". Three examples are "[silence]", "{jazzercise}" and "-[becau]se". Apart from the special characters, there are other subtle issues like no values, mixed data types, etc, which can be shown by calling pandas.DataFrame.describe() function(table).
 
-Take a look at (table), the reader will have an idea that how noisy the data is. On the RowLabel column, there are a number of words marked with special characters such as "[]", "{}", and "-". Three examples are "[silence]", "{jazzercise}" and "-[becau]se". Such words account for 26.1\% of the word importance corpus and 1.39\% of the total SwithBoard corpus. With these special words being removed, the vocabulary size of the SwitchBoard corpus will drop from around 23,000 to 14,926. Special characters indicate different meanings: the square brackets relates to silence, noise, laughter and other sounds which are not so related to the research. Braces relates to background sounds. The dash indicates that the word is unfinished with hesitation, repetition, self-correction and so forth which, depending on the way it is dealt with, will affect the result of the research.  Apart from the special characters, there are other subtle issues like no values, data types, etc. 
+(Table: prosodic features)
+
+(table: data summary)
+
+\subsection{Special Characters}
+Words with special characters account for 26.1\% of the word importance corpus and 1.39\% of the total SwithBoard corpus. With these special words being removed, the vocabulary size of the SwitchBoard corpus will drop from around 38,649 to 29,955. Special characters indicate different meanings: the square brackets relates to silence, noise, laughter and other sounds which are not so related to the research. Braces relates to noncanonical words--words that are not following the rules. The dash indicates that the word is unfinished with hesitation, repetition, self-correction and so forth which, depending on the way it is dealt with, will affect the result of the research. 
+
+(Table: examples of spe-chars)
+
+This research focuses on the relation between words and their speech features, therefore all the non-canonical  or unfinished terms, those with square brackets, were removed. Table (table) shows the difference before and after data cleaning.
+
+(table: before-after cleaning)
 
 %May cause missing values that hazard the computation of propability.
+
+\subsection{Missing Values and Data Type }
+ For some feature types，ProsodyPro failed to compute a numeric value, resulting in a "--undefined--" label. The majority of these '' undefined" labels come form the mean f0 value of speech signals of "[slilence]". A way to deal with these missing values is to label them as Not A Number (numpy.nan). Many algorithms in statistics and scientific computing require the data in the same type. Pandas.DataFrame.astype() method was used to cast the mixed data to numpy.float type.
+
 
 regex
 
@@ -40,14 +55,6 @@ appendix
 * inclimation = ['uh', 'oh', 'wow', 'well', 'yeah', 'um', 'uh-huh', 'okay', 'gee', 'ooh', 'um-hum']
 intensity
 
-- NaN values
-pfs_wimps_df.replace('--undefined--', np.nan, inplace=True)
-
-- dtype
-Cast all numeric data to the same type
-object float
-pfs_wimps_df.replace(0, float(0), inplace=True)
-pfs_wimps_df = pfs_wimps_df.astype("float64")
 
 （Generate descriptive statistics that summarize the central tendency, dispersion and shape of a dataset's distribution, excluding NaN values.
 Analyzes both numeric and object series, as well as DataFrame column sets of mixed data types. The output will vary depending on what is provided.
@@ -62,26 +69,17 @@ Checking the .csv file, not only [silence], but [laughter], [noise], etc;）
 
 
 \section{Data Summary?}
+Before any further statistical analysis, it is very helpful to have a look at the central tendency, dispersion and shape of a dataset's distribution. Table() is a summary of the prosodic data of the word importance corpus produced by pandas.DataFrame.describe() method.
 
-Histograms helps to understand the distribution of the numeric value that is not easy to see with the mean and median.
+(table: wimp summary)
 
-fig: histogram of select features
+Histograms helps to understand the distribution of the numeric value that is not easy to see with the mean and median. With Python library Matplotlib, the histograms were easily drawn (fig). Normally, a scatter plot will reveal the general picture of the relationship between two variables whereas the discrete word importance data in this research make the scatter plot less informative as it is shown in fig().
 
-* word importance
-count    24994.000000
-mean         0.285314
-std          0.264039
-min          0.000000
-25\%          0.100000
-50\%          0.200000
-75\%          0.400000
-max          1.000000
-Name: wimp, dtype: float64
+(fig: histogram of select features)
 
-if a person makes prediction and he predicts all label as "not important", he still has over 60 percent prob to win.
+(fig: scatter plot)
 
-* scarrer plot
-not easy to see the general picture gievn the discrete wimp values.
+According to fig (), some features are normally distributed such as  mean intensity; Some are skewed, for instance, mean f0 and duration. The skewed ones seem to be more correlated to the word importance given their shapes. Considering the normality and other assumptions that Pearson Correlaiton Coefficient has, it makes Spearman Rank Order Correlation a more suitable measurement for this research.
 
 \section{Spearman Rank Order Correlation Coefficient}
 pearson, spearman, kadel?
@@ -89,14 +87,7 @@ spearman is suitable
 equation
 numpy faster than pandas
 
-\subsubsection{Compare values}
-Based on a quantitative approach, the prosodic features and the words in speech will be represented by scalars or vectors. To evaluate the correlation is to map the values of the two elements with a mathematical function. Examining on the property of the function will reveal the relation between the two variables. 
 
-\subsubsection{Compare contours}
-On sentence or utterance level, we may not need a math function to indicate the correlation, instead can plot the contour of prosodic features in a sentence and one with values of word importance. By comparing the peaks, valleys and fluctuations of the two contours, we are also able to learn the relation.
-
-\subsubsection{Compute perplexity}
-Perplexity is the dominant metric to evaluate language models, which reflects the predictability of the model. We can firstly compute the overall perplexity of the language model trained with just text data and then compare it to the perplexity of the model with prosodic features being added. If the latter is lower, it could arguably prove that the prosodic features reveal the word importance in a spoken sentence.
 
 \section{Ethical, Professional and Legal Issues}
 %\lipsum  % Replace with your text
@@ -114,7 +105,6 @@ This project will be implement according to the BSC Code of Conduct with a commi
     \item The author will commit to the duty of his profession and seek to improve professional standards.
 \end{itemize}
 
-%what I am not clear:
-%tones and meaning
+
 
 
