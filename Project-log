@@ -1,3 +1,34 @@
+20/09/19
+why spearman corr doesn't change much when data size increase form 25k to 3m?
+    - general domain, each dialogue using similar Vocabulary
+    - data sampling
+    
+19/09/19
+
+
+define prosody -- 1h
+
+define prominience
+
+prododic modelling --2h
+
+define word predicability --2h
+    probability
+    perplexity
+
+experiments
+    tfidf -- 3h
+    prob-full corpus --2h
+
+abstract, concluesion, further work, accknowledgement -- 4h
+
+references, figs, --4h
+
+review
+
+
+
+
 18/09/19
 is footnote needed for citing softwares such as pandas, jupyter?
 15/09/19

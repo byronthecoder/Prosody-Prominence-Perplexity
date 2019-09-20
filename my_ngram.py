@@ -18,32 +18,42 @@ import nltk
 from nltk import word_tokenize
 from nltk.util import ngrams
 from nltk.stem.lancaster import LancasterStemmer
+from nltk.stem.porter import *
 
 import re
 
 
-def concat_features(pf_paths):
+# create the pandas dataframe of the prosodic features with some words dropped
+
+def concat_features(pf_path, stemming=True, stopword=True, contat=False):
     pfs_df = []
-    for p in sorted(pf_paths):
-        pf_df = pd.read_csv(p, sep="\s+", engine='python')
+    for p in pf_path:
+        pf_df = pd.read_csv(p, sep="\s+", index_col=0, engine='python')
+
+        words = pf_df.index
+
+
+        special_characters = pf_df.index.str.extractall(r'(?P<square>.*\[.*)')
+
+        pf_df.drop(special_characters.square, inplace=True)
+
+        pf_df.replace('--undefined--', np.nan, inplace=True)
+
+        pf_df = pf_df.astype("float64")
+
+        if stemming==True:
+            st = LancasterStemmer()
+            words = [st.stem(word) for word in words]
+            pf_df.index = words
+
+
 
         pfs_df.append(pf_df)
-    p_features = pd.concat(pfs_df, ignore_index=True)
 
-    # make the 'rowLabel' col the indices of the df
-
-    p_features.index = p_features["rowLabel"]
-
-    p_features.drop('rowLabel', axis=1, inplace=True)
-
-    p_features.drop(['[silence]', '[noise]', '[laughter]'], inplace=True)
-
-    p_features.replace('--undefined--', np.nan, inplace=True)
-
-    p_features.replace(0, float(0), inplace=True)
-
-    p_features = p_features.astype("float64")
-
+    if contat == True:
+        p_features = pd.concat(pfs_df)
+    else:
+        p_features = pfs_df
     return p_features
 
 def get_all_sents(trans_paths, stemming=True):
@@ -190,3 +200,11 @@ def bi_prob(p_features, corpus):
         print(feature)
         print(p_features[feature].corr(prob_df_bi.prob, method='spearman'))
         print(p_features[feature].corr(prob_df_bi.prob, method='pearson'))
+
+        import pickle
+
+        with open('./features.pkl', 'wb') as f:
+            pickle.dump(pf, f)
+
+with open('../data/corpus_no_special_chars.txt', 'r') as f:
+    corpus = f.readlines()

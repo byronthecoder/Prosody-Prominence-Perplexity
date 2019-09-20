@@ -111,12 +111,59 @@ It is assumed that a better language model will assigns a higher probability, or
 
 \section{Statistical Tools}
 
+But we need some scientific measurement to the correlation. For example, the Pearson Correlation Coefficient and the Spearman Rank Order Correlation. Pearson requires many assumptions being meet, notably normality. Spearman doesn’t. If you recall the looks of our data, you will understand why I think Spearman is a better measurement to this research, but I computed both of them for comparison.
+
 \subsection{Pearson Correlation Coefficient}
+
+A correlation coefficient is a number between –1 and 1 that describes the relationship between pairs of variables. designated as r, that describes the linear relationship between pairs of variables for quantitative data. 
+
+Many other types of correlation coefficients have been introduced to handle specific types of data, including ranked and qualitative data
+
+Pearson Correlation Coefficient (r)
+A number between –1.00 and +1.00 that describes the linear relationship between pairs of quantitative variables.
+
+1. The sign of r indicates the type of linear relationship, whether positive or negative. 2. The numerical value of r, without regard to sign, indicates the strength of the
+linear relationship.
+
+\begin{equation}
+r = \frac{SP_{xy}}{\sqrt{SS_{x}SS{y}}}\\
+where SP = \sum(X-\bar{X})(Y-\bar{Y}) = \sum XY - \frac{(\sum X)(\sum Y)}{n}\\
+SS_{x} = \sum (X - \bar{X})^{2} = \sum X^{2} - \frac{(\sum X)^{2}}{n}
+SS_{y} = \sum (Y - \bar{Y})^{2} = \sum Y^{2} - \frac{(\sum Y)^{2}}{n}
+\label{eq: correlation coefficient}
+\end{equation}
+
+Its calculation and subsequent significance testing of it requires the following data assumptions to hold:
+
+Continuous and linearly correlated
+Bivariate normal distribution
+Homogeneneity of variances
+No major outliers
 
 \subsection{Spearman Rank Order Correlation}
 
+ordinal 
+If your data does not meet the above assumptions then use Spearman’s rank correlation!
+
+Spearman’s correlation coefficient is a statistical measure of the strength of a monotonic relationship between paired data.
+
+Spearman’s correlation works by calculating Pearson’s correlation on the ranked values of this data.
+
+Spearman’s correlation coefficient is a measure of a monotonic relationship and thus a value of does not imply there is no relationship between the variables. (maybe there is a perfect quadratic relationship)
+
+Calculates a Spearman rank-order correlation coefficient and the p-value to test for non-correlation.
+
+The Spearman correlation is a nonparametric measure of the monotonicity of the relationship between two datasets. Unlike the Pearson correlation, the Spearman correlation does not assume that both datasets are normally distributed. Like other correlation coefficients, this one varies between -1 and +1 with 0 implying no correlation. Correlations of -1 or +1 imply an exact monotonic relationship. Positive correlations imply that as x increases, so does y. Negative correlations imply that as x increases, y decreases.
+
+Non-parametric measure
+
+No need for Assumption of Normality
+
 \subsection{P-value}
 
+The p-value roughly indicates the probability of an uncorrelated system producing datasets that have a Spearman correlation at least as extreme as the one computed from these datasets. The p-values are not entirely reliable but are probably reasonable for datasets larger than 500 or so.
+
+If two variables are correlated, description can lead to prediction. For example, if computer skills and GPAs are related, level of computer skills can be used to predict GPAs. Predictive accuracy increases with the strength of the underlying correlation.
 
 
 %While this conceptualization of word importance as a keyword-extraction problem has led to positive results in the %field of text summarization (Litvak and Last, 2008; Wan et al., 2007; Hong and Nenkova, 2014), this approach may not %generalize to other applications.
@@ -146,7 +193,8 @@ at all to the meaning of the utterance) to 1.0 (so important that cannot be drop
 \end{figure}
 
 \section{Feature Extraction Tools} 
-
+We use three software tools--Praat, ProsodyPro and Parselmouth to do prosodic feature extraction: Praat is a mainstream software tool for phonetic analysis; ProsodyPro is a Praat script that facilitates systemic analysis of speech prosody; Parselmouth is a Python interface to Praat which enables the whole procedure of this experiment, such as data processing and machine learning, be implemented in one programming language.
+ 
 \subsection{ Praat}
 Praat \citep{PaulBoersma&DavidWeenink2018} is a freeware program for the analysis and reconstruction of acoustic speech signals. The user is able to analyze, synthesize, manipulate speech and plot pictures for visualisation in papers. It was designed, and continues to be developed, by Paul Boersma and David Weenink of the University of Amsterdam. Praat is available for most platforms. The clear visual presentation of operational procedures and introduction to acoustic knowledge are provided to facilitate the users in linguistic research.
 
@@ -164,14 +212,33 @@ Some of its functionalities include:
 \label{fig:praat}
 \end{figure}
 
+http://www.fon.hum.uva.nl/praat/
+
 \subsection{ProsodyPro}
-ProsodyPro is a software for large-scale speech prosody analysis. The program is a Praat script developped by Yi Xu at University College London. It allows users to combine detailed analysis of continuous prosodic features with systematic comparison with discrete measurements . The
-allows users to perform systematic analysis of large amounts of data and generates a rich set of output, including both continuous data like time- normalized F0
-contours and F0 velocity profiles suitable for
-graphical analysis, and discrete measurements suitable for statistical analysis. It
+ProsodyPro is a software for large-scale speech prosody analysis. The program is a Praat script developped by Yi Xu at University College London. It allows users to combine detailed analysis of continuous prosodic features with systematic comparison with discrete measurements . The key design of the tool is to implement time-normalisation for continous prosody and generate rich output files for graphical or statistical analysis(citep xu 2014).
 
-\subsection{ParselMouth}
+feature list
 
+Fig: ProsodyPro workflow
+
+http://www.homepages.ucl.ac.uk/~uclyyix/ProsodyPro/
+
+\subsection{Parselmouth}
+Parselmouth is an open-source Python library developped by (citet Yannick ) that provides interface to core functionality of Praat in Python. It focus on applications in audio manipulation, file manipulation, statistical analysis, data visualisation and integration of automated acoustic analysis into experimental design.
+
+fig(example codes)
+
+
+\begin{figure}[ht]
+	\center
+	\includegraphics[width=10cm, scale=0.7]{figures/Praat.jpg}
+	\caption{A code example of using Parselmouth to increase the fundamental frequency, from citet. Usage of Parselmouth functionality is highlighted in red}
+	\label{fig:Parselmouth}
+\end{figure}
+
+Since Parselmouth is under developping, some classes such as PitchTier are not yet ready-to-use as ordinary Python objects, but the parselmouth.praat.call () function serves as an interface to Praat commands as it is shown in fig().
+
+https://github.com/YannickJadoul/Parselmouth
 
 \section{Spearman Rank Order Correlation Coefficient}
 pearson, spearman, kadel?

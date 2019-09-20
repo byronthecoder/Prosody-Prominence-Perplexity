@@ -1,9 +1,9 @@
-\chapter{Experiment}
+\chapter{Experiment Setup}
 %\chapter{Methodology}
 
 \section{Feature Extraction}
 % what should I do? How to implement?
-The ProsodyPro Praat script was ran to extract the prosodic features (listed in Fig) by calling the ParselMouth method parselmouth.praat.run\_file() with the "Interactive labeling" command. The inputs are .wav audio files and Praat style .TextGrid files.  
+The ProsodyPro Praat script was run to extract the prosodic features (listed in Fig) by calling the ParselMouth method parselmouth.praat.run\_file() with the "Interactive labeling" command. The inputs are .wav audio files and Praat style .TextGrid files.  
 
 \subsection{Audio Files Processing}
 The SwitchBoard corpus has a file type of .sph which needs to be converted to .wav. The telephone conversation nature of these audios make them two-channel wave files with each channel representing one speaker, while the transcripts are aligned to each individual speaker. By calling parselmouth.Sound().extract\_all\_channels(), each channel in the audio file was extracted and then can be saved as a mono-channel file.
@@ -17,7 +17,7 @@ When looping through the transcripts to create TextGrid files, some manipulation
 After TextGrid files being created, the author manually checked them to ensure that the codes did the right job.
 
 \subsection{Extraction Prosodic Features}
-The feature extraction process costs 3 to 5 minutes for each wave file. It will generate 17 files in the formats of spreadsheets or graphs for further statistical or graphical researches \citep{Xu2013}. Among these files, the .means file is the spreadsheet which stores the extracted prosodic data from the corresponding audio file. Using Python library Pandas, .mean files were concatenated into a single Pandas DataFrame as the data source. Here is an example showing the first ten rows of the DataFrame for word importance related experiments.
+To extract prosodic features, choose task 2 "Process all sounds without pause" in the main interface of ProsodyPro and modify TexTGrid extension option from the defult .label to **.TextGrid** as it is demostrated in secton(). The feature extraction process costs 3 to 5 minutes for each wave file. It will generate 17 files in the formats of spreadsheets or graphs for further statistical or graphical researches (section ). Among these files, the **.means** file is the spreadsheet which stores the extracted prosodic data from the corresponding audio file. Using Python library Pandas, **.mean** files were concatenated into a single Pandas DataFrame as the data source. Here is an example showing the first ten rows of the DataFrame for word importance related experiments.
 
 pic: features example  rowLabel word, the order corresponds to the texts in the transcripts 
 
@@ -43,31 +43,6 @@ This research focuses on the relation between words and their speech features, t
  For some feature types，ProsodyPro failed to compute a numeric value, resulting in a "--undefined--" label. The majority of these '' undefined" labels come form the mean f0 value of speech signals of "[slilence]". A way to deal with these missing values is to label them as Not A Number (numpy.nan). Many algorithms in statistics and scientific computing require the data in the same type. Pandas.DataFrame.astype() method was used to cast the mixed data to numpy.float type.
 
 
-regex
-
-- stop words
-nltk.download('stopwords')
-from nltk.corpus import stopwords
-
-appendix
-['i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', "you're", "you've", "you'll", "you'd", 'your', 'yours', 'yourself', 'yourselves', 'he', 'him', 'his', 'himself', 'she', "she's", 'her', 'hers', 'herself', 'it', "it's", 'its', 'itself', 'they', 'them', 'their', 'theirs', 'themselves', 'what', 'which', 'who', 'whom', 'this', 'that', "that'll", 'these', 'those', 'am', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'having', 'do', 'does', 'did', 'doing', 'a', 'an', 'the', 'and', 'but', 'if', 'or', 'because', 'as', 'until', 'while', 'of', 'at', 'by', 'for', 'with', 'about', 'against', 'between', 'into', 'through', 'during', 'before', 'after', 'above', 'below', 'to', 'from', 'up', 'down', 'in', 'out', 'on', 'off', 'over', 'under', 'again', 'further', 'then', 'once', 'here', 'there', 'when', 'where', 'why', 'how', 'all', 'any', 'both', 'each', 'few', 'more', 'most', 'other', 'some', 'such', 'no', 'nor', 'not', 'only', 'own', 'same', 'so', 'than', 'too', 'very', 's', 't', 'can', 'will', 'just', 'don', "don't", 'should', "should've", 'now', 'd', 'll', 'm', 'o', 're', 've', 'y', 'ain', 'aren', "aren't", 'couldn', "couldn't", 'didn', "didn't", 'doesn', "doesn't", 'hadn', "hadn't", 'hasn', "hasn't", 'haven', "haven't", 'isn', "isn't", 'ma', 'mightn', "mightn't", 'mustn', "mustn't", 'needn', "needn't", 'shan', "shan't", 'shouldn', "shouldn't", 'wasn', "wasn't", 'weren', "weren't", 'won', "won't", 'wouldn', "wouldn't"]
-
-* inclimation = ['uh', 'oh', 'wow', 'well', 'yeah', 'um', 'uh-huh', 'okay', 'gee', 'ooh', 'um-hum']
-intensity
-
-
-（Generate descriptive statistics that summarize the central tendency, dispersion and shape of a dataset's distribution, excluding NaN values.
-Analyzes both numeric and object series, as well as DataFrame column sets of mixed data types. The output will vary depending on what is provided.
-
-Finding:
-most frequent word: [silence], not relavant to the research;
-NaN value in col maxf0, minf0 ..., maybe there exists string values like "--undefined--" or ones that are not float64;
-Checking the .csv file, not only [silence], but [laughter], [noise], etc;）
-
-
-
-
-
 \section{Data Summary?}
 Before any further statistical analysis, it is very helpful to have a look at the central tendency, dispersion and shape of a dataset's distribution. Table() is a summary of the prosodic data of the word importance corpus produced by pandas.DataFrame.describe() method.
 
@@ -81,11 +56,11 @@ Histograms helps to understand the distribution of the numeric value that is not
 
 According to fig (), some features are normally distributed such as  mean intensity; Some are skewed, for instance, mean f0 and duration. The skewed ones seem to be more correlated to the word importance given their shapes. Considering the normality and other assumptions that Pearson Correlaiton Coefficient has, it makes Spearman Rank Order Correlation a more suitable measurement for this research.
 
-\section{Spearman Rank Order Correlation Coefficient}
-pearson, spearman, kadel?
-spearman is suitable
-equation
-numpy faster than pandas
+\section{Word Probability}
+stemming
+
+\section{Computing Correlation}
+scipy.stats.spearmanr
 
 
 

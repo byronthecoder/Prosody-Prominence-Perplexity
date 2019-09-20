@@ -20,6 +20,10 @@ table(Word Importance - Word Predictability Correlation)
 \section{Prosodic Features - Word Predictability Correlation}
 Experiments proved that there is correlation between prominent prosodic features and word predictability as it is shown in table(), and the correlation is negative. With one prominent prosodic feature, for instance mean intensity, increasing, the word predictability tends to decrease, hence the word is less predictable. With a token size of 25,000, the most correlated feature is duration with its correlation coefficient valued -0.565. Excursion size and max f0 location rank second with a value around -0.28. The figure for mean intensity, -0.116, is noticeable, too. The p-value (section ) for each aforementioned prosodic features is much smaller than the significance level 0.05, indicating that the correlation is statistically highly significant.
 
+table(Prosodic Features - Word Predictability Correlation, 25,000)
+table(Prosodic Features - Word Predictability Correlation, 2m)
+table(Prosodic Features - Word Predictability Correlation, 4m)
+
 \section{A Neural Word Importance Classifier}
 Automatic word importance detection and labelling could be adopted to various real time scenarios such as summarisation, caption generation and speech recognition. In reality, word importance modelling systems are mainly based on texts as they contain rich semantic and syntactical cues. In the speech domain, such texts come from human-annotated transcripts or autimatic speech recognition (ASR) systems, which are by nature expensive to aqquire or noised by word errors.
 
@@ -34,17 +38,22 @@ Automatic word importance detection and labelling could be adopted to various re
  \subsection{Traning}
  For training, model parameters were initialised using Xavier initialisation. Negative Log Likelihood Loss was chosen as the loss function. We used the Adam optimizer with an initial learning rate of 0.001 to do full batch learning. After fine-tuning, the best-working setup was: a 32-dimensional hidden layer and a 0.05 learning rate. We used the accuracy result to evaluate the performance of the model. 
  
+ table(Results)
+ 
  \subsection{Results and Analysis}
 After 100 epochs of training, the MLP-Softmax model acchieved a accuracy score of 62.54. To evalutate the result, we compared it to the performances of another 4 models with the similar experiment setup(site ). (cite, 2019) also implemented a accoustic-prosodic based word importance classifier whereas the speech features they used were more complicated, in total 30 features related to pitch(10), energy (11), voicing (3) and spoken-lexical elements (6). It was a sequence-to-sequence model using LSTM to capture the context information.
 
 As it is described in (cite 2019), althought the text-based models outperformed the speech-based models because of the significant semantic information available, their LSTM-Softmax model were competitive with an accuracy score of 63.72 especially in performance with text-based models noised by human-made word errors. According to (cite, Barker) it is typical for modern ASR systems to have a WER aound 30\% in many real-world scenarios. Thus, speech-based systems have huge potential.
 
 Compared with the LSTM-Softmax model, our simple MLP-Softmax model only have 1/3 of the parameter numbers, yet has acchieved a very similar performance without using any context information. It could be inferred that, considering only the speech signals, the importance of a word is more related to the word itself. Additionally, the prominent prosodic features such as duration, intensity, largely changed pitches seem to be more important features to be selected.
+
 \section{Further Work}
 1. male female raw pitch
 2. speaker specific or speaker normalised
 3. word specific
 4. context
+5. general, not pragmatic.
+	eg. whisper
 
 regex
 
