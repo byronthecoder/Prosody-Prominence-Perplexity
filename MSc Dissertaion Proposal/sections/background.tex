@@ -12,28 +12,15 @@ prosody conveys various types of linguistic information over the spoken utteranc
 
 The study of prosody is fundamental to both basic research and applications in speech and natural language processing. Prosodic cues have been applied to many fields of language technology, especially speech synthesis  \citep{Schuller2018}, automatic summarization \citep{Chen2010} and emotion detection \citep{Liu2016} in spoken utterances. 
 
- 
-%\subsection{Prosodic analysis}
-%Prosodic analysis aims to compute an abstract representation of the prosodic prominence, structure and tune of the spoken utterance.
-%
-%Most of the previous study focuses on the prosodic structure, prosodic prominence, tune and the use of features including pitch, energy and duration \citep{Pierrehumbert1980,Pierrehumbert1990,Pierrehumbert2015,Hirschberg2002}. 
-%
-%Recently, researchers explored vector representation of words based on speech and its prosodic features \citep{He2016, Chung2018}, a similar approach as the widely used word embedding technique "word2vec" in Natural Language Processing.     
-%
-%\subsubsection{Prosodic Structure}
-%Similar to the grammartical structure of a written sentence, spoken utterances have such a structure as some words group naturally together and form a boundary or break. There is a term to describe prosodic structure--prosodic phrasing. A spoken sentence could be divided into intonational phrases, those separated by commas in text, and even smaller units called intermediate phrases. 
-%
-%Prososic phrasing is of great use in tasks such as speech synthesis. Automatic phrase boundary detection can be regarded as a classification problem. 
-
-%\subsubsection{Tune}
-%The tune of an utterance is the rise and fall of its $F_0$ over time. The typical tunes in English are a rise of the voice at the last word in a yes-no question and a drop at the end of a statement. The former is called the question rise and the latter the final fall. 
-%
-%The tune is a useful facility to express meaning and emotions. It can be inferred from the tune contour that whether the speaker is surprised or in a contradiction. For a long time, most of the systems are only able to distinguish two or three tunes yet more and more work emerges on this topic.
-
 \subsection{Prodody: Analysis and Models}
 One of the ultimate purpose of studying prosody is to gain a knowledge that is sophiscated enough to allow precise predictions of prosodic patterns. Prosody analysis and the computational modelling of prosody are two driving forces interacting with each other towards our ultimate goal with gradual progressions. \citet{Xu2015} summarises in his overview of prosody researches that despite various disputes between theories and models of prosody, there is a clear historical trend toward approaches that are hypothesis-driven, experimental-based, detail-sensitive, and modeling-oriented. What is underlying is drive to achieve predictive rather than merely descriptive knowledge of prosody. 
 
 This is seen in the gradual progression through research strategies that may be characterized as analysis by introspective transcription, analysis by acoustic transcription, analysis by hypothesis testing and analysis by modeling (Xu, 2011). 
+
+the AM (Autosegmental- Metrical) theory (Ladd, 2008), also known as the Pierrehumbert model (Pierrehumbert, 1980; Pierrehumbert and Beckman, 1988)
+
+Nuclear tone model
+Crystal, D. (1969). Prosodic Systems and Intonation in English. London: Cambridge University Press.
 
 The early days of prosody research was dominated by descriptive methods that can be collectively characterized as analysis by introspective transcription. In this approach, symbolic representations of prosodic events are proposed based on the researcher’s intuition and nonexperimental observation. Crystal (1969)
 
@@ -78,6 +65,10 @@ Neither the hypotheses nor the predictions are considered as corroborated until 
 When a speaker says some words with a raised voice, slower pace or with more energy, the listener seems to feel these words are more prominent or important. Pitch accent and stress are the linguistic markers used to denote a prosodic prominence. Most of the content words are accented whereas function words tend not to bear pitch accent. Generally speaking, more informative words (for example new words or unexpected words) are more likely to bear accent \citep{Beckman1986, Bagshaw1994}.
 
 Previous literature examines the relationship between prosodic prominence and accoustic features: pitch accents are suggested to be closely connected with fundamental frequency (F0) movements and syllable overall energy \citep{Bagshaw1994, Streefkerk1999, Brenier2005}; and stress shows a strong correlation with syllable nuclei duration and mid-to-high-frequency emphasis\citep{Sluijter1996, Tamburini2003}. Such acoustic correlates have been adopted to build automatic prosodic prominence detection systems\citep{Tamburini2003}. The number of syllables spoken in a word can also be estimated using the \citet{DeJong2009} model. 
+
+Figure 2: Prosodic prominence function values for the utterance “For girls the overprotection is far more pervasive”. From the top, the waveform plot, the syllable segmentation (shown only for the purposes of comparison as it is not used by the system presented here), the syllable nuclei as detected by the system and finally the prominence values for every nucleus identified by the
+segmentation procedure. Prominent nuclei, as identified by the automatic system, are marked by a dot on the function profile, while prominent syllables, as classified by a human listener, are indicated by a thick box in the syllable segmentation track (“syl”).
+
 
 %http://ec-concord.ied.edu.hk/phonetics_and_phonology/wordpress/learning_website/chapter_1_introduction_new.htm#1.2.1
 
@@ -150,88 +141,7 @@ Pearson's correlation coefficient requires the following data assumptions to hol
 	\item No major outliers
 \end{itemize}
 
+The significant of Pearson's r  is measured by the p-value. In statistical hypothesis testing, the p-value is the probability of finding the observed, or more extreme, results when the hypothesis of a study question is false.
+
 \subsection{Spearman Rank Order Correlation}
 Spearman Rank Order Correlation Coefficient is a statistical measure of the strength of a monotonic relationship between paired data. It works by calculating Pearson’s correlation on the ranked values of the data. Unlike the Pearson correlation, the Spearman correlation does not assume that both variables in the pair are normally distributed. If the data does not meet the assumptions of Pearson's correlation, then Spearman’s rank correlation could be adopted. As a metrics of monotonic relationship, a very low Spearman value does not necesarrily imply that there is no relationship between the variables. Instead, there may exist a perfect quadratic relationship between the datasets.
-
-\subsection{P-value}
-
-The p-value roughly indicates the probability of an uncorrelated system producing datasets that have a Spearman correlation at least as extreme as the one computed from these datasets. The p-values are not entirely reliable but are probably reasonable for datasets larger than 500 or so.
-
-If two variables are correlated, description can lead to prediction. For example, if computer skills and GPAs are related, level of computer skills can be used to predict GPAs. Predictive accuracy increases with the strength of the underlying correlation.
-
-
-%While this conceptualization of word importance as a keyword-extraction problem has led to positive results in the %field of text summarization (Litvak and Last, 2008; Wan et al., 2007; Hong and Nenkova, 2014), this approach may not %generalize to other applications.
-%
-%For instance, given the sometimes meandering nature of topic transition in spontaneous speech dialogue (Sheeba and %Vivekanandan, 2012), applications that process transcripts of such dialogue may benefit from a model of word %importance that is more local, i.e. based on the importance of a word at sentential, utterance, or local dialogue %level, rather than at a document- level. 
-%
-%Furthermore, the dyadic nature of dialogue, with interleaved contributions from multiple speakers, may require %special consideration when evaluating word importance. In this paper, we present a corpus with annotation of word %importance that could be used to support research into these complex issues.
-
-
-
-
-
-%LM with prosodic features:
-%Sub-word to Word-level Representation 
-%The acoustic features listed above were extracted from a 50-ms sliding window over each %word re- gion with a 10-ms overlap. In our model, each word was represented as a sequence %of these sub- word features with varying lengths, as shown in Figure 2. To get a feature %representation for a word, we utilized a bi-directional Recurrent Neu- ral Network (RNN) %layer on top of the sub-word features. The spoken-lexical features were then concatenated %to this word-level feature representa- tion to get our final feature vectors. For this %task, we utilized Gated Recurrent Units (GRUs) (Cho et al., 2014) as our RNN cell, rather %than LSTM units, due to better performance observed during our initial analysis.
-%5
-
-%\section{A Section that Contains Some References}
-%
-%According to seminal research by \cite{Reference1}, lorem ipsum dolor sit amet.  However, %this result was already known in the 1990s \citep{Reference2,Reference3}.  % Note the use %of \cite{} and \citep{}
-%
-%
-%\section{A Section that Contains Some Maths}
-%
-%\lipsum  % Replace with your text
-% 
-%\begin{equation}
-%M = \frac{1}{T}\sum_{t=1}^{T} e(t) / \max_{t}[e(t)]
-%\label{eq:equation}
-%\end{equation}
-%
-%\lipsum  % Replace with your text
-%
-%This is shown in Equation \ref{eq:equation} and is repeated here $M = %\frac{1}{T}\sum_{t=1}^{T} e(t) / \max_{t}[e(t)]$.
-%
-%
-%\section{A Section that Contains a Figure}
-%
-%\lipsum  % Replace with your text
-%
-%\begin{figure}[ht]
-%\includegraphics[width=15cm]{figures/figure1.png}
-%\caption{A simple figure in \LaTeX. Reproduced from http://tinyurl.com/nqtrlj5 with the %permission of the copyright owner.}
-%\label{fig:graph}
-%\end{figure}
-%
-%\lipsum  % Replace with your text
-%
-%See Figure \ref{fig:graph}.
-%
-%
-%\section{A Section that Contains a Table}
-%
-%\lipsum  % Replace with your text
-%
-%\begin{table}[ht]
-%\center
-%\begin{tabular}{cc|c}
-%A & B & A XOR B\\
-%\hline
-%0 & 0 & 0\\
-%0 & 1 & 1\\
-%1 & 0 & 1\\
-%1 & 1 & 0\\
-%\end{tabular}
-%\caption{A simple table in \LaTeX.}
-%\label{tab:xor}
-%\end{table}
-%
-%\lipsum  % Replace with your text
-%
-%This is shown in Table \ref{tab:xor}.
-%
-%
-%\section{Summary}
-%
-%\lipsum  % Replace with your text

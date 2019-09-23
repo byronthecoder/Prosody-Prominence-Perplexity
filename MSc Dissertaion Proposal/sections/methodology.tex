@@ -1,5 +1,5 @@
 \chapter{Experiment Setup}
-%\chapter{Methodology}
+
 
 \section{Corpuses}
 Choosing appropriate audio data is of vital importance for this experimental project. The less noisy the recording is, the better the extracted rosodic features. The sppech corpus should be large in size and cover general domains. Time alligned transcripts are desirable for the convenience of word-level accoustic feature extraction and text processing. 
@@ -45,8 +45,6 @@ http://www.fon.hum.uva.nl/praat/
 \subsection{ProsodyPro}
 ProsodyPro is a software for large-scale speech prosody analysis. The program is a Praat script developped by Yi Xu at University College London. It allows users to combine detailed analysis of continuous prosodic features with systematic comparison with discrete measurements . The key design of the tool is to implement time-normalisation for continous prosody and generate rich output files for graphical or statistical analysis(citep xu 2014).
 
-feature list
-
 Fig: ProsodyPro workflow
 
 http://www.homepages.ucl.ac.uk/~uclyyix/ProsodyPro/
@@ -69,14 +67,11 @@ Since Parselmouth is under developping, some classes such as PitchTier are not y
 https://github.com/YannickJadoul/Parselmouth
 
 \section{Feature Selection}
-scientific understanding can be only as accurate as the level of detail we choose in our observations.
+In this research, we extracted 11 word-level acoustic-prosodic features which are the default non-timenormalised feature setting of ProsodyPro. Features and their description are summarised in table()
 
-although certain gross patterns can be observed, the causal relations among the contributing factors are likely to remain vague. 
+table(feature list)
 
-sub-word level 
-level of details
-constrains: lack of syllable transcripts, forced-allignment errors, time-constrant, ProsodyPro slow
-could be further work 
+According to Section 2.1.3, we name excursion size, duration, mean intensity, max velocity, final velocity and max f0 location as more related features to prosodic prominence.
 
 \section{Algorithms}
 Spearman Rank Order Correlation Coefficient
