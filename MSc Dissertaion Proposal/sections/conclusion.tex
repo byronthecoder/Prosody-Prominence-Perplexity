@@ -1,12 +1,20 @@
 \chapter{Conclusions}
 
 %\lipsum  % Replace with your text
-By writing this project background report, the author finished the literature survey, project analysis, risk analysis, and work planning.
+prosodic informative word predictability
+hypothesis prominence
+experiment spearman's correlation SwitchBoard word level not speaker normalised prododic features
+result we have shown that 
+	word level not speaker normalised weak-medium correlation
+neural model, accuracy, compared to similar setting
+	acoustic prosodic features helpful
+furtherwork
 
-In the literature survey part, the author reviewed the classic theories on prosody such as the work of Julia Hirschberg and Janet Pierrehumbert, as well as the emerging researches on voice quality and speech style. The author has planned to select pitch accent, prosodic phrasing and tune as main features and use ToBI model to quantitatively analyze the spoken utterances in Switchboard corpus. The prosodic feature extraction software to use will probably be Praat. 
+In speech communication, prosodic patternings (pitch, duration and energy) are utilised to draw the listener's attention to the most informative words, and the informativeness is closely related to the predictability of the spoken word. It is hypothesised that the prominent prosodic features correlate to the word predictability. This experimental research tested the hypothesis by computing the Spearman's correlation coefficients of the variable pairs -- each consisting of an acoustic prosodic feature selected from a feature group and a numeric representation of word predictability. We used TF-IDF value, raw word probability and a set of human-annotated word importance scores as the measurements of word predictability.
 
-As for language modelling, metrics such as TF-IDF, perplexity and RIT annotation are supposed to be adopted in order to implement a statistical word importance prediction model. Additionally, neural network based approach should not be overlooked such as word-embedding tool BERT and the Long-Short Term Memory model.
+We have shown that the selected word-level, non-speaker-nomorlised, prominent prosodic features have weak to medium correlation with word prodictability. From a perspective of prosodic prominence, the significance of correlation has a general desending order of: duration - excursion size - maxf0 location - maxf0 velocity - mean intensity; from the aspect of word predictability measurements, the spectrum will be: raw word probability - word importance scores - TF-IDF.
 
-The objectives and research questions of the project have been examined in detail.  The author also analysed each sub-task in the implementation stage and listed the preferred methods. A risk register is provided which lists 10 hazards and actions to avoid or decrease the impact.
+To test the effectiveness of the selected prosodic features in predicting important words, given the proved correlation, we have implemented a simple-structured neural word importance classifier trained for a 3-class classification task. It achieved an accuracy score of 62.54, which is very close to Kafle's model with a much complicated feature settings, and is comparitable to the text-based models. Concequently, this exhibits the usefulness of our prosodic features and shows the potential of the speech-based models in real life prediction tasks given the impracticalness to attain text transcripts.
 
-This project is divided into 3 stages: theoretical framework, experiment implementation and project dissertation. A  Gantt chart is draw to show the timeline, sub-tasks, milestones and dependencies between tasks. For a good project organisation, stage retrospectives and an experiment journal will also be written.
+Scientific understanding can be only as accurate as the level of detail we choose in our observations. For further research on this topic, one direction could go to syllable-level feature extraction as literature proves that prosodic prominence is more detectable with features such as syllable energy and syllable duration. Moreover, speaker normalisation could be applied to reduce the affect of sex, articulation variation and microphone condition. Furthermore, to ingratate lexical and acoustic prosodic cues is also a promising direction to a more robust word importance detector.
+

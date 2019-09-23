@@ -1,66 +1,102 @@
 \chapter{Experiment Setup}
 %\chapter{Methodology}
 
-\section{Feature Extraction}
-% what should I do? How to implement?
-The ProsodyPro Praat script was run to extract the prosodic features (listed in Fig) by calling the ParselMouth method parselmouth.praat.run\_file() with the "Interactive labeling" command. The inputs are .wav audio files and Praat style .TextGrid files.  
+\section{Corpuses}
+Choosing appropriate audio data is of vital importance for this experimental project. The less noisy the recording is, the better the extracted rosodic features. The sppech corpus should be large in size and cover general domains. Time alligned transcripts are desirable for the convenience of word-level accoustic feature extraction and text processing. 
 
-\subsection{Audio Files Processing}
-The SwitchBoard corpus has a file type of .sph which needs to be converted to .wav. The telephone conversation nature of these audios make them two-channel wave files with each channel representing one speaker, while the transcripts are aligned to each individual speaker. By calling parselmouth.Sound().extract\_all\_channels(), each channel in the audio file was extracted and then can be saved as a mono-channel file.
-
-To do prosodic feature extraction using ProsodyPro, not only audio files are required but also time-aligned word transcriptions. The TextGrid object in Praat can serve as such transcriptions. It has a multi-tier structure consisting of two kinds of tiers: an interval tier and a point tier. The former is a sequence of labelled intervals, with boundaries in between; the latter is a sequence of labelled points. The idea is to create an interval tier with the word duration as an  interval and the word itself as the label. All these could be done by calling Praat's "To TextGrid", "Insert boundary", and "Set interval text" methods using ParselMouth. With the .wav file and the .TextGrid file been created, ProsodyPro is able to implement feature extraction and store the data in a table as it is shown in (tab...)
-
-When looping through the transcripts to create TextGrid files, some manipulation work should be noticed:
-- the "Insert boundary" method cannot take 0 as input, should delete rows with time point 0 in the transcripts
-- at one time point can only insert one boundary, need to delete rows with same time points in the transcripts
-
-After TextGrid files being created, the author manually checked them to ensure that the codes did the right job.
-
-\subsection{Extraction Prosodic Features}
-To extract prosodic features, choose task 2 "Process all sounds without pause" in the main interface of ProsodyPro and modify TexTGrid extension option from the defult .label to **.TextGrid** as it is demostrated in secton(). The feature extraction process costs 3 to 5 minutes for each wave file. It will generate 17 files in the formats of spreadsheets or graphs for further statistical or graphical researches (section ). Among these files, the **.means** file is the spreadsheet which stores the extracted prosodic data from the corresponding audio file. Using Python library Pandas, **.mean** files were concatenated into a single Pandas DataFrame as the data source. Here is an example showing the first ten rows of the DataFrame for word importance related experiments.
-
-pic: features example  rowLabel word, the order corresponds to the texts in the transcripts 
-
-\section{Data Cleaning}
-Take a look at (table), the reader will have an idea of how noisy the data is. On the RowLabel column, there are a number of words marked with special characters such as "[]", "{}", and "-". Three examples are "[silence]", "{jazzercise}" and "-[becau]se". Apart from the special characters, there are other subtle issues like no values, mixed data types, etc, which can be shown by calling pandas.DataFrame.describe() function(table).
-
-(Table: prosodic features)
-
-(table: data summary)
-
-\subsection{Special Characters}
-Words with special characters account for 26.1\% of the word importance corpus and 1.39\% of the total SwithBoard corpus. With these special words being removed, the vocabulary size of the SwitchBoard corpus will drop from around 38,649 to 29,955. Special characters indicate different meanings: the square brackets relates to silence, noise, laughter and other sounds which are not so related to the research. Braces relates to noncanonical words--words that are not following the rules. The dash indicates that the word is unfinished with hesitation, repetition, self-correction and so forth which, depending on the way it is dealt with, will affect the result of the research. 
-
-(Table: examples of spe-chars)
-
-This research focuses on the relation between words and their speech features, therefore all the non-canonical  or unfinished terms, those with square brackets, were removed. Table (table) shows the difference before and after data cleaning.
-
-(table: before-after cleaning)
-
-%May cause missing values that hazard the computation of propability.
-
-\subsection{Missing Values and Data Type }
- For some feature types，ProsodyPro failed to compute a numeric value, resulting in a "--undefined--" label. The majority of these '' undefined" labels come form the mean f0 value of speech signals of "[slilence]". A way to deal with these missing values is to label them as Not A Number (numpy.nan). Many algorithms in statistics and scientific computing require the data in the same type. Pandas.DataFrame.astype() method was used to cast the mixed data to numpy.float type.
+\subsection{Switchboard Corpus}
+The SwithchBoard telephone conversation corpus is a large multi-speaker speech database. It consists of approximately 260 hours of telephone conversations among 543 speakers (241 female, 302 male) from across the United States, covering major dialects of American English\citep{Godfrey1992} . In 2003, the Institute for Signal and Information Processing (ISIP) released written transcripts for the entire corpus with a complete vocabulary list and automatic word alignment timing corresponding to the original audio files. The transcripts has over 4,000,000 words in total, a suitable size for language modelling.
 
 
-\section{Data Summary?}
-Before any further statistical analysis, it is very helpful to have a look at the central tendency, dispersion and shape of a dataset's distribution. Table() is a summary of the prosodic data of the word importance corpus produced by pandas.DataFrame.describe() method.
+\subsection{RIT Word Importance Corpus}
+The Linguistic and Assistive Technologies Laboratory at the Rochester Institute of Technology (RIT) released a free-to-download word importance annotation corpus in 2017  \citep{Kafle2018}. It is an augumented version of the ISIP Switchboard transcripts with a pair of annotators assigning word importance scores to each word token in a sentence. By September 2017, over 25,000 tokens have been annotated including an overlap of approximately 3,100 tokens. 
 
-(table: wimp summary)
+\citet{Kafle2018} defined word importance as 11 discrete values from 0.0 (not important
+at all to the meaning of the utterance) to 1.0 (so important that cannot be dropped). The annotator has been given a rating scheme which specifies the scoring criteria. They should also consider how much the meaning of the utterance would be changed if a word has been deleted. Here is an example showing how the scoring system works.
 
-Histograms helps to understand the distribution of the numeric value that is not easy to see with the mean and median. With Python library Matplotlib, the histograms were easily drawn (fig). Normally, a scatter plot will reveal the general picture of the relationship between two variables whereas the discrete word importance data in this research make the scatter plot less informative as it is shown in fig().
+\begin{figure}[ht]
+	\includegraphics[width=15cm]{figures/word.png}
+	\caption{An example of RIT annotation from S. Kafle and M. Huenerfauth, 2018}
+	\label{fig:word}
+\end{figure}
 
-(fig: histogram of select features)
+\section{Feature Extraction Tools} 
+We use three software tools--Praat, ProsodyPro and Parselmouth to do prosodic feature extraction: Praat is a mainstream software tool for phonetic analysis; ProsodyPro is a Praat script that facilitates systemic analysis of speech prosody; Parselmouth is a Python interface to Praat which enables the whole procedure of this experiment, such as data processing and machine learning, be implemented in one programming language.
 
-(fig: scatter plot)
+\subsection{ Praat}
+Praat \citep{PaulBoersma&DavidWeenink2018} is a freeware program for the analysis and reconstruction of acoustic speech signals. The user is able to analyze, synthesize, manipulate speech and plot pictures for visualisation in papers. It was designed, and continues to be developed, by Paul Boersma and David Weenink of the University of Amsterdam. Praat is available for most platforms. The clear visual presentation of operational procedures and introduction to acoustic knowledge are provided to facilitate the users in linguistic research.
 
-According to fig (), some features are normally distributed such as  mean intensity; Some are skewed, for instance, mean f0 and duration. The skewed ones seem to be more correlated to the word importance given their shapes. Considering the normality and other assumptions that Pearson Correlaiton Coefficient has, it makes Spearman Rank Order Correlation a more suitable measurement for this research.
+Some of its functionalities include:
+\begin{itemize}
+	\item generate waveforms, wide and narrow band spectrograms, intensity contour and pitch tracks;
+	\item get information about pitch, intensity, formants, pulses and etc;
+	\item enhance certain frequency regions; segment and label words, syllables, or individual phonemes;
+\end{itemize}
 
-\section{Word Probability}
-stemming
+\begin{figure}[ht]
+	\center
+	\includegraphics[width=10cm, scale=0.7]{figures/Praat.jpg}
+	\caption{Speech analysis sofware Praat, from http://ec-concord.ied.edu.hk/}
+	\label{fig:praat}
+\end{figure}
 
-\section{Computing Correlation}
-scipy.stats.spearmanr
+http://www.fon.hum.uva.nl/praat/
+
+\subsection{ProsodyPro}
+ProsodyPro is a software for large-scale speech prosody analysis. The program is a Praat script developped by Yi Xu at University College London. It allows users to combine detailed analysis of continuous prosodic features with systematic comparison with discrete measurements . The key design of the tool is to implement time-normalisation for continous prosody and generate rich output files for graphical or statistical analysis(citep xu 2014).
+
+feature list
+
+Fig: ProsodyPro workflow
+
+http://www.homepages.ucl.ac.uk/~uclyyix/ProsodyPro/
+
+\subsection{Parselmouth}
+Parselmouth is an open-source Python library developped by (citet Yannick ) that provides interface to core functionality of Praat in Python. It focus on applications in audio manipulation, file manipulation, statistical analysis, data visualisation and integration of automated acoustic analysis into experimental design.
+
+fig(example codes)
+
+
+\begin{figure}[ht]
+	\center
+	\includegraphics[width=10cm, scale=0.7]{figures/Praat.jpg}
+	\caption{A code example of using Parselmouth to increase the fundamental frequency, from citet. Usage of Parselmouth functionality is highlighted in red}
+	\label{fig:Parselmouth}
+\end{figure}
+
+Since Parselmouth is under developping, some classes such as PitchTier are not yet ready-to-use as ordinary Python objects, but the parselmouth.praat.call () function serves as an interface to Praat commands as it is shown in fig().
+
+https://github.com/YannickJadoul/Parselmouth
+
+\section{Feature Selection}
+scientific understanding can be only as accurate as the level of detail we choose in our observations.
+
+although certain gross patterns can be observed, the causal relations among the contributing factors are likely to remain vague. 
+
+sub-word level 
+level of details
+constrains: lack of syllable transcripts, forced-allignment errors, time-constrant, ProsodyPro slow
+could be further work 
+
+\section{Algorithms}
+Spearman Rank Order Correlation Coefficient
+pearson, spearman, kadel?
+spearman is suitable
+equation
+numpy faster than pandas
+
+stemming: nltk.stem.lancaster
+http://www.nltk.org/_modules/nltk/stem/lancaster.html
+
+stop words: nltk stop word list
+
+
+tf-idf: sklearn.feature_extraction.text.TfidfVectorizer
+https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html
+
+Spearman Correlation: scipy.stats.spearmanr
+https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.stats.spearmanr.html
+
 
 
 
@@ -69,17 +105,16 @@ scipy.stats.spearmanr
 This project will be implement according to the BSC Code of Conduct with a commitment to the author's professional integrity and in the public interest.
 
 \begin{itemize}
-    
-    \item The data to use in this project is from public database, e.g. Switchboard corpus, and the software to use is open-source, e.g. Praat. The author will have due regard for public interest including privacy, equality and  the legitimate rights of Third Parties.
-    
-    \item This project will be done within the author's professional competence without stealing, copying or reproducing the work of others.
-    
-    \item The author promise to carry out his professional responsibilities with due care and
-    diligence in accordance with the Relevant Authority’s requirements and will not misrepresent any data or information.
-    
-    \item The author will commit to the duty of his profession and seek to improve professional standards.
+	
+	\item The data to use in this project is from public database, e.g. Switchboard corpus, and the software to use is open-source, e.g. Praat. The author will have due regard for public interest including privacy, equality and  the legitimate rights of Third Parties.
+	
+	\item This project will be done within the author's professional competence without stealing, copying or reproducing the work of others.
+	
+	\item The author promise to carry out his professional responsibilities with due care and
+	diligence in accordance with the Relevant Authority’s requirements and will not misrepresent any data or information.
+	
+	\item The author will commit to the duty of his profession and seek to improve professional standards.
 \end{itemize}
-
 
 
 
